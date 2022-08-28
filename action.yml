@@ -11,9 +11,6 @@ inputs:
   path_pattern:
     description: Path pattern
     required: true
-  filter:
-    description: Path pattern
-    required: null
   debug:
     description: Filter runbooks to be executed
     required: false
@@ -35,5 +32,3 @@ runs:
     - ${{ (inputs.debug == 'true' && '--debug') || '' }}
     - ${{ (inputs.fail-fast == 'true' && '--fail-fast') || '' }}
     - ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }}
-  env:
-    RUNN_RUN: ${{ inputs.filter }}
