@@ -32,8 +32,8 @@ runs:
   args:
     - ${{ inputs.command }}
     - ${{ inputs.path_pattern }}
-    - ${{ (inputs.debug == true && '--debug') || '' }}
-    - ${{ (inputs.fail-fast == true && '--fail-fast') || '' }}
-    - ${{ (inputs.skip-test == true && '--skip-test') || '' }}
+    - ${{ (inputs.debug == 'true' && '--debug') || '' }}
+    - ${{ (inputs.fail-fast == 'true' && '--fail-fast') || '' }}
+    - ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }}
   env:
     RUNN_RUN: ${{ inputs.filter }}
