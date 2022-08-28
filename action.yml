@@ -1,0 +1,39 @@
+name: 'Run runn'
+description: 'GitHub Action for runn, a tool for collecting code coverage.'
+branding:
+  icon: 'octagon'
+  color: 'gray-dark'
+inputs:
+  command:
+    description: run or list
+    required: true
+    default: 'run'
+  path_pattern:
+    description: Path pattern
+    required: true
+  filter:
+    description: Path pattern
+    required: true
+  debug:
+    description: Filter runbooks to be executed
+    required: false
+    default: null
+  fail-fast:
+    description: Fail fast mode
+    required: false
+    default: false
+  skip-test:
+    description: Skip test mode
+    required: false
+    default: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.command }}
+    - ${{ inputs.path_pattern }}
+    - ${{ (inputs.debug && '--debug') || '' }}
+    - ${{ (inputs.fail-fast && '--fail-fast') || '' }}
+    - ${{ (inputs.skip-test && '--skip-test') || '' }}
+  env:
+    RUNN_RUN: ${{ inputs.filter }}

@@ -1,0 +1,24 @@
+name: Integration
+
+on:
+  push:
+
+jobs:
+  test-config:
+    runs-on: ubuntu-latest
+    services:
+      httpbin:
+        image: kennethreitz/httpbin:latest
+        ports:
+          - 8080:80
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./
+        with:
+          command: run
+          command: testdata/path/to/config.yml
+          debug: true
+          fail-fast: false
+          skip-test: false
+        env:
+          HTTPBIN_END_POINT: http://localhost:8080/
