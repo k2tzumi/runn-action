@@ -13,11 +13,11 @@ inputs:
     required: true
   filter:
     description: Path pattern
-    required: true
+    required: null
   debug:
     description: Filter runbooks to be executed
     required: false
-    default: null
+    default: false
   fail-fast:
     description: Fail fast mode
     required: false
