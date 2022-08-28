@@ -14,12 +14,21 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      # option test
       - uses: ./
         with:
           command: run
           path_pattern: testdata/path/to/*.yml
           debug: true
-          fail-fast: false
+          fail-fast: true
           skip-test: false
+        env:
+          HTTPBIN_END_POINT: http://172.17.0.1:8080/
+      # filter test
+      - uses: ./
+        with:
+          command: run
+          path_pattern: testdata/path/to/*.yml
+          filter: httpbin_include
         env:
           HTTPBIN_END_POINT: http://172.17.0.1:8080/
