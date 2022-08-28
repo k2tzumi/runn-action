@@ -1,5 +1,5 @@
 name: 'Run runn'
-description: 'GitHub Action for runn, a tool for collecting code coverage.'
+description: 'GitHub Action for runn, a tool for api scenario testing.'
 branding:
   icon: 'octagon'
   color: 'gray-dark'
