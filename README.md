@@ -41,4 +41,18 @@ jobs:
           END_POINT: http://172.17.0.1:8080/
 ```
 
+# Action parameters
+
+- `command`  
+`Required` Default is `run`.
+- `path_pattern`  
+`Required` Specify the path to the Runbook ( runn scenario file ).
+- `debug`  
+Enable runtime debug output. Default is `false`.
+- `fail-fast`  
+Terminates the process if a step in the scenario fails in the middle of a step. Default is `false`.
+- `skip-test`  
+Scenario runs, but test is not evaluated. Default is `false`.
+
+
 See [action.yml](action.yml) and [runn README](https://github.com/k1LoW/runn) for more details on how to runbook it.
