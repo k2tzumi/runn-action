@@ -13,6 +13,7 @@ jobs:
           - 8080:80
     steps:
       - uses: actions/checkout@v2
+
       - uses: ./
         with:
           command: run
@@ -20,5 +21,5 @@ jobs:
           debug: true
           fail-fast: false
           skip-test: false
-        # env:
-        #   HTTPBIN_END_POINT: http://host.docker.internal:8080/
+        env:
+          HTTPBIN_END_POINT: http://172.17.0.1:8080/
