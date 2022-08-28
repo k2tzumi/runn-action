@@ -28,7 +28,7 @@ inputs:
     default: false
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: 'docker://ghcr.io/k1low/runn:v0.31.0'
   args:
     - ${{ inputs.command }}
     - ${{ inputs.path_pattern }}
