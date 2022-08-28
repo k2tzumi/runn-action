@@ -16,7 +16,7 @@ jobs:
       - uses: ./
         with:
           command: run
-          command: testdata/path/to/config.yml
+          path_pattern: testdata/path/to/*.yml
           debug: true
           fail-fast: false
           skip-test: false
