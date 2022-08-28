@@ -23,4 +23,6 @@ jobs:
           fail-fast: true
           skip-test: false
         env:
+          # Override parameters in scenario with environment variables
+          # NOTE: Specify `172.17.0.1` when accessing services on the GitHub Actions host.
           HTTPBIN_END_POINT: http://172.17.0.1:8080/
