@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  test-config:
+  test-execution:
     runs-on: ubuntu-latest
     services:
       httpbin:
@@ -13,7 +13,7 @@ jobs:
           - 8080:80
     steps:
       - uses: actions/checkout@v2
-      - uses: ifaxity/wait-on-action
+      - uses: iFaxity/wait-on-action@v1
         with:
           resource: http://localhost:8080/anything
       - uses: ./
