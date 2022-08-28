@@ -31,4 +31,5 @@ jobs:
           path_pattern: testdata/path/to/*.yml
           filter: httpbin_include
         env:
+          RUNN_RUN: httpbin_include
           HTTPBIN_END_POINT: http://172.17.0.1:8080/
