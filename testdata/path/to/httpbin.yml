@@ -15,11 +15,11 @@ vars:
     -
       foo: "test2"
       bar: 2
-  external: json://testdata/vars.json
+  external: json://../../vars.json
   loopCount: 3
   loopVars:
-    - "testdata/vars.json"
-    - "testdata/vars_array.json"
+    - "../../vars.json"
+    - "../../vars_array.json"
   wantBody:
     Content-Type: "application/json"
     freeform: "foo"
