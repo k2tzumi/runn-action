@@ -23,9 +23,13 @@ inputs:
     description: Skip test mode
     required: false
     default: false
+  version:
+    description: Version of runn to use
+    required: false
+    default: v0.36.2
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/k1low/runn:v0.35.2'
+  image: 'docker://ghcr.io/k1low/runn:${{ inputs.version }}'
   args:
     - ${{ inputs.command }}
     - ${{ inputs.path_pattern }}
