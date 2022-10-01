@@ -25,7 +25,7 @@ inputs:
     default: false
 runs:
   using: 'docker'
-  pre: version.sh
+  pre: 'version.sh'
   image: 'docker://ghcr.io/k1low/runn:${env:RUNN_VERSION}'
   args:
     - ${{ inputs.command }}
