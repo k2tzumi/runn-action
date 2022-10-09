@@ -27,7 +27,7 @@ jobs:
               tag: '${{ github.event.inputs.version }}',
             })
             console.log(release)
-            core.setOutput('url', release.data.body.html_url);
+            core.setOutput('url', release.data.html_url);
             return release.data.body
       - uses: actions/checkout@v3
       - name: Bump up image version
