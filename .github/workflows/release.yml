@@ -42,9 +42,10 @@ jobs:
           committer_email: 41898282+github-actions[bot]@users.noreply.github.com
           message: 'refs ${{ steps.get-release-note.outputs.url }}, Bump up image version'
           add: 'action.yml'
-          new_branch: release/${{ github.event.inputs.version }}
+          new_branch: 'release/${{ github.event.inputs.version }}'
           tag: '${{ github.event.inputs.version }} --force'
           tag_push: '--force'
       - name: Show gihub script output
         run: |
           echo "get-release: ${{ steps.get-release-note.outputs.result }}"
+          echo "get-release-url: ${{ steps.get-release-note.outputs.url }}"
