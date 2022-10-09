@@ -43,7 +43,6 @@ jobs:
           message: 'refs ${{ steps.get-release-note.outputs.url }}, Bump up image version'
           add: 'action.yml'
           new_branch: 'release/${{ github.event.inputs.version }}'
-          push: '--force'
           tag: '${{ github.event.inputs.version }} --force'
           tag_push: '--force'
       - name: Show gihub script output
