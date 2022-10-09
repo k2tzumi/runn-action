@@ -1,0 +1,58 @@
+name: Manual release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        description: What version to be released?
+        default: "v0.0.0"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release-job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        id: get-release-note
+        with:
+          result-encoding: string
+          script: |
+            const release = await github.rest.repos.getReleaseByTag({
+              owner: 'k1low',
+              repo: 'runn',
+              tag: '${{ github.event.inputs.version }}',
+            })
+            console.log(release)
+            core.setOutput('url', release.data.html_url);
+            return release.data.body
+      - uses: actions/checkout@v3
+      - name: Bump up image version
+        id: bump-up-image-version
+        run: |
+          sed -i -e 's/\/k1low\/runn:v[.0-9]\{1,\}/\/k1low\/runn:${{ github.event.inputs.version }}/g' action.yml
+          git diff
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          committer_name: GitHub Actions
+          committer_email: 41898282+github-actions[bot]@users.noreply.github.com
+          message: 'refs ${{ steps.get-release-note.outputs.url }}, Bump up image version'
+          add: 'action.yml'
+          new_branch: 'release/${{ github.event.inputs.version }}'
+          tag: '${{ github.event.inputs.version }} --force'
+          tag_push: '--force'
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.event.inputs.version }}
+          release_name: ${{ github.event.inputs.version }}
+          body: |
+            ${{ steps.get-release-note.outputs.result }}
+          draft: false
+          prerelease: false
