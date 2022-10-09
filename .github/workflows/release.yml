@@ -1,0 +1,32 @@
+name: Manual release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        required: true
+        description: What version to be released?
+        default: "v0.0.0"
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/github-script@v6
+      id: get-release
+      with:
+        result-encoding: string
+        script: |
+          github.rest.repos.getRelease({
+            owner: 'k1LoW',
+            repo: 'runn',
+            release_id: github.event.inputs.version,
+          })
+  - name: Show gihub script output
+      run: |
+        echo "get-release: ${{ steps.get-release.outputs.result }}"
