@@ -27,6 +27,7 @@ jobs:
               tag: '${{ github.event.inputs.version }}',
             })
             console.log(release)
+            echo "::set-output name=url::${release.data.html_url}"
             return release.data.body
       - uses: actions/checkout@v3
       - name: Bump up image version
@@ -34,6 +35,16 @@ jobs:
         run: |
           sed -i -e 's/\/k1low\/runn:v[.0-9]\{1,\}/\/k1low\/runn:${{ github.event.inputs.version }}/g' action.yml
           git diff
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          committer_name: GitHub Actions
+          committer_email: 41898282+github-actions[bot]@users.noreply.github.com
+          message: 'refs ${{ steps.get-release-note.outputs.url }}, Bump up image version'
+          add: 'action.yml'
+          new_branch: release/${{ github.event.inputs.version }}
+          tag: '${{ github.event.inputs.version }} --force'
+          tag_push: '--force'
       - name: Show gihub script output
         run: |
           echo "get-release: ${{ steps.get-release-note.outputs.result }}"
