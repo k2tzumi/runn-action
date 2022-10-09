@@ -21,10 +21,10 @@ jobs:
         with:
           result-encoding: string
           script: |
-            github.rest.repos.getRelease({
+            github.rest.repos.getReleaseByTag({
               owner: 'k1LoW',
               repo: 'runn',
-              release_id: ${{ github.event.inputs.version }},
+              tag: ${{ github.event.inputs.version }},
             })
       - name: Show gihub script output
         run: |
