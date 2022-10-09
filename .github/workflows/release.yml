@@ -21,11 +21,13 @@ jobs:
         with:
           result-encoding: string
           script: |
-            github.rest.repos.getReleaseByTag({
+            const release = await github.rest.repos.getReleaseByTag({
               owner: 'k1LoW',
               repo: 'runn',
               tag: '${{ github.event.inputs.version }}',
             })
+            console.log(release)
+            return release
       - name: Show gihub script output
         run: |
           echo "get-release: ${{ steps.get-release.outputs.result }}"
