@@ -24,7 +24,7 @@ jobs:
             github.rest.repos.getReleaseByTag({
               owner: 'k1LoW',
               repo: 'runn',
-              tag: ${{ github.event.inputs.version }},
+              tag: '${{ github.event.inputs.version }}',
             })
       - name: Show gihub script output
         run: |
