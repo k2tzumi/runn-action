@@ -19,6 +19,7 @@ jobs:
       - uses: actions/github-script@v6
         id: get-release-note
         with:
+          result-encoding: string
           script: |
             const release = await github.rest.repos.getReleaseByTag({
               owner: 'k1low',
@@ -26,7 +27,8 @@ jobs:
               tag: '${{ github.event.inputs.version }}',
             })
             console.log(release)
-            return release.data
+            core.setOutput('url', release.data.body.html_url);
+            return release.data.body
       - uses: actions/checkout@v3
       - name: Bump up image version
         id: bump-up-image-version
@@ -38,12 +40,12 @@ jobs:
         with:
           committer_name: GitHub Actions
           committer_email: 41898282+github-actions[bot]@users.noreply.github.com
-          message: 'refs ${{ steps.get-release-note.outputs.result.html_url }}, Bump up image version'
+          message: 'refs ${{ steps.get-release-note.outputs.url }}, Bump up image version'
           add: 'action.yml'
           new_branch: 'release/${{ github.event.inputs.version }}'
           tag: '${{ github.event.inputs.version }} --force'
           tag_push: '--force'
       - name: Show gihub script output
         run: |
-          echo "get-release: ${{ steps.get-release-note.outputs.result.body }}"
-          echo "get-release-url: ${{ steps.get-release-note.outputs.result.html_url }}"
+          echo "get-release: ${{ steps.get-release-note.outputs.result }}"
+          echo "get-release-url: ${{ steps.get-release-note.outputs.url }}"
