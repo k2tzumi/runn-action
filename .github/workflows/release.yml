@@ -28,6 +28,7 @@ jobs:
             })
             console.log(release)
             return release.data.body
+      - uses: actions/checkout@v3
       - name: Bump up image version
         id: bump-up-image-version
         run: |
