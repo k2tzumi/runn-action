@@ -24,7 +24,7 @@ jobs:
             github.rest.repos.getRelease({
               owner: 'k1LoW',
               repo: 'runn',
-              release_id: github.event.inputs.version,
+              release_id: ${{ github.event.inputs.version }},
             })
       - name: Show gihub script output
         run: |
