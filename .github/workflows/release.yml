@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v6
-        id: get-release
+        id: get-release-note
         with:
           result-encoding: string
           script: |
@@ -27,7 +27,24 @@ jobs:
               tag: '${{ github.event.inputs.version }}',
             })
             console.log(release)
-            return release
+            return release.data.body
+      - uses: actions/github-script@v6
+        id: get-release-note
+        with:
+          result-encoding: string
+          script: |
+            const release = await github.rest.repos.getReleaseByTag({
+              owner: 'k1LoW',
+              repo: 'runn',
+              tag: '${{ github.event.inputs.version }}',
+            })
+            console.log(release)
+            return release.data.body
+      - name: Bump up image version
+        id: bump-up-image-version
+        run: |
+          sed -i -e 's/\/k1LoW\/runn:@v[.0-9]+/\/k1LoW\/runn:@${{ github.event.inputs.version }}/g' action.yml
+          git diff
       - name: Show gihub script output
         run: |
-          echo "get-release: ${{ steps.get-release.outputs.result }}"
+          echo "get-release: ${{ steps.get-release-note.outputs.result }}"
