@@ -27,7 +27,6 @@ jobs:
               tag: '${{ github.event.inputs.version }}',
             })
             console.log(release)
-            echo '::set-output name=url::${ release.html_url }'
             return release.data.body
       - uses: actions/checkout@v3
       - name: Bump up image version
