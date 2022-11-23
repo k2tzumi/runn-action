@@ -46,13 +46,7 @@ jobs:
           tag: '${{ github.event.inputs.version }} --force'
           tag_push: '--force'
       - name: Create Release
-        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.event.inputs.version }}
-          release_name: ${{ github.event.inputs.version }}
-          body: |
-            ${{ steps.get-release-note.outputs.result }}
-          draft: false
-          prerelease: false
+        run: |
+          gh release create ${{ github.event.inputs.version }} --notes "${{ steps.get-release-note.outputs.result }}" 
