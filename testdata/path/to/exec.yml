@@ -3,11 +3,9 @@ steps:
   -
     exec:
       command: echo Hello world
-  -
     test: 'current.stdout contains "Hello"'
   -
     exec:
       command: cat
       stdin: '{{ previos.stdout }}'
-  -
-    test: 'previous.stdout contains "Hello"'
+    test: 'current.stdout contains "Hello"'
