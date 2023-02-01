@@ -7,5 +7,5 @@ steps:
   -
     exec:
       command: cat
-      stdin: '{{ previos.stdout }}'
+      stdin: '{{ steps[0].stdout }}'
     test: 'current.stdout contains "Hello"'
