@@ -23,6 +23,10 @@ inputs:
     description: Skip test mode
     required: false
     default: false
+  shuffle:
+    description: Shuffle mode
+    required: false
+    default: false
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/k1low/runn:v0.57.1'
@@ -32,3 +36,4 @@ runs:
     - ${{ (inputs.debug == 'true' && '--debug') || '' }}
     - ${{ (inputs.fail-fast == 'true' && '--fail-fast') || '' }}
     - ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }}
+    - ${{ (inputs.shuffle == 'true' && '--shuffle on') || '' }}

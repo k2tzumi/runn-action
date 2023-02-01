@@ -53,6 +53,8 @@ Enable runtime debug output. Default is `false`.
 Terminates the process if a step in the scenario fails in the middle of a step. Default is `false`.
 - `skip-test`  
 Scenario runs, but test is not evaluated. Default is `false`.
+- `shuffle`  
+Shuffle multiple Runbooks to run with the runn command. Default is `false`.
 
 
 See [action.yml](action.yml) and [runn README](https://github.com/k1LoW/runn) for more details on how to runbook it.
