@@ -44,7 +44,10 @@ jobs:
 # Action parameters
 
 - `command`  
-`Required` `run` a scenario by specifying run. `list` the contents of a scenario by specifying list. Default is `run`.
+`Required` `run` a scenario by specifying run.  
+`list` the contents of a scenario by specifying list.  
+If `loadt` is specified, the scenario can be used as a load test. 
+Default is `run`.
 - `path_pattern`  
 `Required` Specify the path to the Runbook ( runn scenario file ).
 - `debug`  
