@@ -26,6 +26,7 @@ jobs:
           debug: true
           fail-fast: true
           skip-test: false
+          shuffle: true
         env:
           # Override parameters in scenario with environment variables
           # NOTE: Specify `172.17.0.1` when accessing services on the GitHub Actions host.
