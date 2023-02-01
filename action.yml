@@ -5,7 +5,7 @@ branding:
   color: 'gray-dark'
 inputs:
   command:
-    description: run or list
+    description: run or list or loadt
     required: true
     default: 'run'
   path_pattern:
