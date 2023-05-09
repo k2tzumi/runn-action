@@ -15,6 +15,10 @@ inputs:
     description: Filter runbooks to be executed
     required: false
     default: false
+  verbose:
+    description: Verbose mode
+    required: false
+    default: false
   fail-fast:
     description: Fail fast mode
     required: false
@@ -34,6 +38,7 @@ runs:
     - ${{ inputs.command }}
     - ${{ inputs.path_pattern }}
     - ${{ (inputs.debug == 'true' && '--debug') || '' }}
+    - ${{ (inputs.verbose == 'true' && '--verbose') || '' }}
     - ${{ (inputs.fail-fast == 'true' && '--fail-fast') || '' }}
     - ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }}
     - ${{ (inputs.shuffle == 'true' && '--shuffle on') || '' }}
