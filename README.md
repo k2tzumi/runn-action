@@ -52,6 +52,8 @@ Default is `run`.
 `Required` Specify the path to the Runbook ( runn scenario file ).
 - `debug`  
 Enable runtime debug output. Default is `false`.
+- `verbose`
+Enable detailed progress output. Default is `false`.
 - `fail-fast`  
 Terminates the process if a step in the scenario fails in the middle of a step. Default is `false`.
 - `skip-test`  

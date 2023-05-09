@@ -24,6 +24,7 @@ jobs:
           command: run
           path_pattern: testdata/path/to/*.yml
           debug: true
+          verbose: true
           fail-fast: true
           skip-test: false
           shuffle: true
