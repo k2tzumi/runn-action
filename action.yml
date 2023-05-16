@@ -31,6 +31,10 @@ inputs:
     description: Shuffle mode
     required: false
     default: false
+  concurrent:
+    description: Concurrent mode
+    required: false
+    default: false    
 runs:
   using: 'docker'
   image: 'docker://ghcr.io/k1low/runn:v0.69.1'
@@ -42,3 +46,4 @@ runs:
     - ${{ (inputs.fail-fast == 'true' && '--fail-fast') || '' }}
     - ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }}
     - ${{ (inputs.shuffle == 'true' && '--shuffle on') || '' }}
+    - ${{ (inputs.concurrent == 'true' && '--concurrent on') || '' }}
