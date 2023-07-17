@@ -54,11 +54,11 @@ jobs:
               const response = await github.rest.repos.createRelease({
                 draft: false,
                 generate_release_notes: true,
-                name: ${{ github.event.inputs.version }},
+                name: 'Release ${{ github.event.inputs.version }}',
                 owner: context.repo.owner,
                 prerelease: false,
                 repo: context.repo.repo,
-                tag_name: ${{ github.event.inputs.version }},
+                tag_name: '${{ github.event.inputs.version }}',
                 body: '${{ steps.get-release-note.outputs.result }}'
               });
 
