@@ -4,6 +4,10 @@ branding:
   icon: 'octagon'
   color: 'gray-dark'
 inputs:
+  version:
+    description: Specify runn version
+    required: false
+    default: 'latest'
   command:
     description: run or list or loadt
     required: true
@@ -34,10 +38,10 @@ inputs:
   concurrent:
     description: Concurrent mode
     required: false
-    default: false    
+    default: false
 runs:
   using: 'docker'
-  image: 'docker://ghcr.io/k1low/runn:v0.75.1'
+  image: 'docker://ghcr.io/k1low/runn:${{ inputs.version }}'
   args:
     - ${{ inputs.command }}
     - ${{ inputs.path_pattern }}
