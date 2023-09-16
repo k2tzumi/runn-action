@@ -7,7 +7,7 @@ inputs:
   version:
     description: Specify runn version
     required: false
-    default: 'latest'
+    default: 'v0.82.0'
   command:
     description: run or list or loadt
     required: true
