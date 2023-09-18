@@ -44,7 +44,6 @@ runs:
   steps:
     - name: 'Check input parameter'
       shell: 'bash'
-      if: inputs.version
       run: |
         if [[ "${{ inputs.version }}" < "v0.64.0" ]]; then
           echo "Error: runn version ${{ inputs.version }} is not supported. Please use v0.64.0 or higher."
