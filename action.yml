@@ -41,6 +41,8 @@ inputs:
     default: 'v0.82.0'
 runs:
   using: 'composite'
+  env:
+    version: ${{ inputs.version || 'v0.82.0' }}
   steps:
     - name: 'Check input parameter'
       shell: 'bash'
@@ -50,7 +52,7 @@ runs:
           exit 1
         fi
     - name: 'Run runn'
-      uses: docker://ghcr.io/k1low/runn:${{ inputs.version }}
+      uses: docker://ghcr.io/k1low/runn:${{ env.version }}
       with:
         args: |
           ${{ inputs.command }} \
