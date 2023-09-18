@@ -53,12 +53,12 @@ runs:
     - name: 'Run runn'
       uses: docker://ghcr.io/k1low/runn:v0.82.0
       with:
-        args:
-          - ${{ inputs.command }}
-          - ${{ inputs.path_pattern }}
-          - ${{ (inputs.debug == 'true' && '--debug') || '' }}
-          - ${{ (inputs.verbose == 'true' && '--verbose') || '' }}
-          - ${{ (inputs.fail-fast == 'true' && '--fail-fast') || '' }}
-          - ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }}
-          - ${{ (inputs.shuffle == 'true' && '--shuffle on') || '' }}
-          - ${{ (inputs.concurrent == 'true' && '--concurrent on') || '' }}
+        args: |
+          ${{ inputs.command }} \
+          ${{ inputs.path_pattern }} \
+          ${{ (inputs.debug == 'true' && '--debug') || '' }} \
+          ${{ (inputs.verbose == 'true' && '--verbose') || '' }} \
+          ${{ (inputs.fail-fast == 'true' && '--fail-fast') || '' }} \
+          ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }} \
+          ${{ (inputs.shuffle == 'true' && '--shuffle on') || '' }} \
+          ${{ (inputs.concurrent == 'true' && '--concurrent on') || '' }}
