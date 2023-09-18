@@ -29,7 +29,6 @@ jobs:
           skip-test: false
           shuffle: true
           concurrent: true
-          version: 'v0.82.0'
         env:
           # Override parameters in scenario with environment variables
           # NOTE: Specify `172.17.0.1` when accessing services on the GitHub Actions host.
