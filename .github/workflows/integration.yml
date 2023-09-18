@@ -16,10 +16,10 @@ jobs:
         ports:
           - 8080:80
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      # option test
-      - uses: ./
+      - name: 'Option test'
+        uses: ./
         with:
           command: run
           path_pattern: testdata/path/to/*.yml
@@ -33,3 +33,15 @@ jobs:
           # Override parameters in scenario with environment variables
           # NOTE: Specify `172.17.0.1` when accessing services on the GitHub Actions host.
           HTTPBIN_END_POINT: http://172.17.0.1:8080/
+      - name: 'Check input parameter test'
+        uses: ./
+        with:
+          command: completion
+          path_pattern: testdata/path/to/exec.yml
+          debug: true
+          verbose: true
+          fail-fast: true
+          skip-test: false
+          shuffle: true
+          concurrent: true
+  
