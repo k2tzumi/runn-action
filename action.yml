@@ -34,16 +34,26 @@ inputs:
   concurrent:
     description: Concurrent mode
     required: false
-    default: false    
+    default: false
 runs:
-  using: 'docker'
-  image: 'docker://ghcr.io/k1low/runn:v0.75.1'
-  args:
-    - ${{ inputs.command }}
-    - ${{ inputs.path_pattern }}
-    - ${{ (inputs.debug == 'true' && '--debug') || '' }}
-    - ${{ (inputs.verbose == 'true' && '--verbose') || '' }}
-    - ${{ (inputs.fail-fast == 'true' && '--fail-fast') || '' }}
-    - ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }}
-    - ${{ (inputs.shuffle == 'true' && '--shuffle on') || '' }}
-    - ${{ (inputs.concurrent == 'true' && '--concurrent on') || '' }}
+  using: 'composite'
+  steps:
+    - name: 'Check input parameter'
+      shell: 'bash'
+      run: |
+        if [[ ! "${{ inputs.command }}" =~ ^(run|list|loadt)$ ]]; then
+          echo "Error: Invalid command ${{ inputs.command }} is not supported. Please specify run or list or loadt."
+          exit 1
+        fi
+    - name: 'Run runn'
+      uses: docker://ghcr.io/k1low/runn:v0.82.0
+      with:
+        args: |
+          ${{ inputs.command }} \
+          ${{ inputs.path_pattern }} \
+          ${{ (inputs.debug == 'true' && '--debug') || '' }} \
+          ${{ (inputs.verbose == 'true' && '--verbose') || '' }} \
+          ${{ (inputs.fail-fast == 'true' && '--fail-fast') || '' }} \
+          ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }} \
+          ${{ (inputs.shuffle == 'true' && '--shuffle on') || '' }} \
+          ${{ (inputs.concurrent == 'true' && '--concurrent on') || '' }}
