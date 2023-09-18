@@ -40,7 +40,7 @@ inputs:
     required: false
     default: 'v0.82.0'
 env:
-  version: ${{ inputs.version || 'v0.82.0' }}
+  version: v0.82.0
 runs:
   using: 'composite'
   steps:
