@@ -45,4 +45,4 @@ jobs:
           skip-test: false
           shuffle: true
           concurrent: true
-        continue-on-error: true  
+        continue-on-error: true
