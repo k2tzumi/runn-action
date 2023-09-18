@@ -4,10 +4,6 @@ branding:
   icon: 'octagon'
   color: 'gray-dark'
 inputs:
-  version:
-    description: Specify runn version
-    required: false
-    default: 'v0.82.0'
   command:
     description: run or list or loadt
     required: true
@@ -39,6 +35,10 @@ inputs:
     description: Concurrent mode
     required: false
     default: false
+  version:
+    description: Specify runn version
+    required: false
+    default: 'v0.82.0'
 runs:
   using: 'composite'
   steps:
