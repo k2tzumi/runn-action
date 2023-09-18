@@ -35,24 +35,18 @@ inputs:
     description: Concurrent mode
     required: false
     default: false
-  version:
-    description: Specify runn version
-    required: false
-    default: 'v0.82.0'
-env:
-  version: v0.82.0
 runs:
   using: 'composite'
   steps:
     - name: 'Check input parameter'
       shell: 'bash'
       run: |
-        if [[ "${{ inputs.version }}" < "v0.64.0" ]]; then
-          echo "Error: runn version ${{ inputs.version }} is not supported. Please use v0.64.0 or higher."
+        if [[ "${{ inputs.command }}" =~ ^(run|list|loadt)$ ]]; then
+          echo "Error: Invalid command ${{ inputs.command }} is not supported. Please specify run or list or loadt."
           exit 1
         fi
     - name: 'Run runn'
-      uses: docker://ghcr.io/k1low/runn:${{ env.version }}
+      uses: docker://ghcr.io/k1low/runn:v0.82.0
       with:
         args: |
           ${{ inputs.command }} \
