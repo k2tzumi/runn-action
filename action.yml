@@ -40,14 +40,25 @@ inputs:
     required: false
     default: false
 runs:
-  using: 'docker'
-  image: 'docker://ghcr.io/k1low/runn:${{ inputs.version }}'
-  args:
-    - ${{ inputs.command }}
-    - ${{ inputs.path_pattern }}
-    - ${{ (inputs.debug == 'true' && '--debug') || '' }}
-    - ${{ (inputs.verbose == 'true' && '--verbose') || '' }}
-    - ${{ (inputs.fail-fast == 'true' && '--fail-fast') || '' }}
-    - ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }}
-    - ${{ (inputs.shuffle == 'true' && '--shuffle on') || '' }}
-    - ${{ (inputs.concurrent == 'true' && '--concurrent on') || '' }}
+  using: 'composite'
+  steps:
+  - name: 'Check input parameter'
+    shell: 'bash'
+    if: inputs.version
+    run: |
+      if [[ "${{ inputs.version }}" < "v0.64.0" ]]; then
+        echo "Error: runn version ${{ inputs.version }} is not supported. Please use v0.64.0 or higher."
+        exit 1
+      fi
+  - name: 'Run runn'
+    uses: 'docker://ghcr.io/k1low/runn:${{ inputs.version }}'
+    with:
+      args:
+        - ${{ inputs.command }}
+        - ${{ inputs.path_pattern }}
+        - ${{ (inputs.debug == 'true' && '--debug') || '' }}
+        - ${{ (inputs.verbose == 'true' && '--verbose') || '' }}
+        - ${{ (inputs.fail-fast == 'true' && '--fail-fast') || '' }}
+        - ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }}
+        - ${{ (inputs.shuffle == 'true' && '--shuffle on') || '' }}
+        - ${{ (inputs.concurrent == 'true' && '--concurrent on') || '' }}
