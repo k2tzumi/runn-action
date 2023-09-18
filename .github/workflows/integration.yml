@@ -34,6 +34,7 @@ jobs:
           # NOTE: Specify `172.17.0.1` when accessing services on the GitHub Actions host.
           HTTPBIN_END_POINT: http://172.17.0.1:8080/
       - name: 'Check input parameter test'
+        id: fail-step
         uses: ./
         with:
           command: completion
@@ -44,4 +45,4 @@ jobs:
           skip-test: false
           shuffle: true
           concurrent: true
-  
+        continue-on-error: true  
