@@ -14,8 +14,8 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "main"
-    versioning-strategy: "increase"
     commit-message:
       prefix: "chore"
       include: "scope"
     open-pull-requests-limit: 10
+    
