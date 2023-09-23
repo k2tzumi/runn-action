@@ -15,3 +15,5 @@ registries:
   ghcr:
     type: docker-registry
     url: ghcr.io
+    username: ${{secrets.USERNAME}}
+    password: ${{secrets.PASSWORD}}
