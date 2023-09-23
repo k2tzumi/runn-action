@@ -46,7 +46,7 @@ runs:
           exit 1
         fi
     - name: 'Run runn'
-      uses: docker://ghcr.io/k1low/runn:v0.82.0
+      uses: docker://ghcr.io/k1low/runn:v0.83.0
       with:
         args: |
           ${{ inputs.command }} \
