@@ -13,5 +13,5 @@ updates:
       - ghcr
 registries:
   ghcr:
-    type: docker_registry
+    type: docker-registry
     url: ghcr.io
