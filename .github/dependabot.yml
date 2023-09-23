@@ -9,13 +9,9 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
-  - package-ecosystem: "docker"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    target-branch: "main"
-    commit-message:
-      prefix: "chore"
-      include: "scope"
-    open-pull-requests-limit: 10
-    
+    registries:
+      - ghcr
+registries:
+  ghcr:
+    type: docker_registry
+    url: ghcr.io
