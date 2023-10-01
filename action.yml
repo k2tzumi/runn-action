@@ -11,6 +11,10 @@ inputs:
   path_pattern:
     description: Path pattern
     required: true
+  github-token:
+    description: The GitHub token
+    default: ${{ github.token }}
+    required: false
   version:
     description: Specify runn version
     required: false
@@ -56,7 +60,7 @@ runs:
     - name: Setup k1LoW/runn
       uses: k1LoW/gh-setup@v1
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        github-token: ${{ inputs.github-token }}
         repo: k1LoW/runn
         version: ${{ inputs.version }}
     - name: 'Run runn'
