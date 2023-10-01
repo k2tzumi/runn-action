@@ -11,6 +11,14 @@ inputs:
   path_pattern:
     description: Path pattern
     required: true
+  github-token:
+    description: The GitHub token
+    default: ${{ github.token }}
+    required: false
+  version:
+    description: Specify runn version
+    required: false
+    default: 'v0.83.1'
   debug:
     description: Filter runbooks to be executed
     required: false
@@ -41,14 +49,24 @@ runs:
     - name: 'Check input parameter'
       shell: 'bash'
       run: |
+        if [[ "${{ inputs.version }}" < "v0.64.0" ]]; then
+          echo "Error: runn version ${{ inputs.version }} is not supported. Please use v0.64.0 or higher."
+          exit 1
+        fi
         if [[ ! "${{ inputs.command }}" =~ ^(run|list|loadt)$ ]]; then
           echo "Error: Invalid command ${{ inputs.command }} is not supported. Please specify run or list or loadt."
           exit 1
         fi
-    - name: 'Run runn'
-      uses: docker://ghcr.io/k1low/runn:v0.82.0
+    - name: Setup k1LoW/runn
+      uses: k1LoW/gh-setup@v1
       with:
-        args: |
+        github-token: ${{ inputs.github-token }}
+        repo: k1LoW/runn
+        version: ${{ inputs.version }}
+    - name: 'Run runn'
+      shell: 'bash'
+      run: |
+        runn \
           ${{ inputs.command }} \
           ${{ inputs.path_pattern }} \
           ${{ (inputs.debug == 'true' && '--debug') || '' }} \

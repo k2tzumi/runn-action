@@ -33,7 +33,7 @@ jobs:
       - name: Bump up image version
         id: bump-up-image-version
         run: |
-          sed -i -e 's/\/k1low\/runn:v[.0-9]\{1,\}/\/k1low\/runn:${{ github.event.inputs.version }}/g' action.yml
+          sed -i -e 's/default: \'v[.0-9]\{1,\}\'/default: \'${{ github.event.inputs.version }}\'/g' action.yml
           git diff
       - name: Commit changes
         uses: EndBug/add-and-commit@v9
