@@ -54,7 +54,7 @@ Default is `run`.
 Enable runtime debug output. Default is `false`.
 - `verbose`  
 Enable detailed progress output. Default is `false`.
-- `version`
+- `version`  
 This parameter specifies the version of runn.  
 If this parameter is omitted, runn-action automatically selects and runs the same version of runn as its own version.
 - `fail-fast`  
