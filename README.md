@@ -65,6 +65,10 @@ Scenario runs, but test is not evaluated. Default is `false`.
 Shuffle multiple Runbooks to run with the runn command. Default is `false`.
 - `concurrent`  
 Enable concurrent execution. Default is `false`.
+- `enable-read-remote-scope`  
+Enable `read:remote` scope. Default is `false`.
+- `enable-run-exec-scope`  
+Enable `run:exec` scope. Default is `false`.
 
 
 See [action.yml](action.yml) and [runn README](https://github.com/k1LoW/runn) for more details on how to runbook it.
