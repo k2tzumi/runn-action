@@ -1,4 +1,6 @@
 desc: Exec sample
+labels:
+  - integration
 steps:
   -
     exec:
