@@ -18,7 +18,7 @@ inputs:
   version:
     description: Specify runn version
     required: false
-    default: 'v0.83.1'
+    default: 'v0.89.1'
   debug:
     description: Filter runbooks to be executed
     required: false
@@ -43,6 +43,15 @@ inputs:
     description: Concurrent mode
     required: false
     default: false
+  enable-read-remote-scope:
+    description: Required for reading remote files.(`--scopes read:remote`)
+    required: false
+    default: false
+  enable-run-exec-scope:
+    description: Required for running Exec runner.(`--scopes run:exec`)
+    required: false
+    default: false
+
 runs:
   using: 'composite'
   steps:
@@ -74,4 +83,7 @@ runs:
           ${{ (inputs.fail-fast == 'true' && '--fail-fast') || '' }} \
           ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }} \
           ${{ (inputs.shuffle == 'true' && '--shuffle on') || '' }} \
-          ${{ (inputs.concurrent == 'true' && '--concurrent on') || '' }}
+          ${{ (inputs.concurrent == 'true' && '--concurrent on') || '' }} \
+          ${{ (inputs.enable-read-remote-scope == 'true' && inputs.enable-run-exec-scope == 'true' && '--scopes read:remote,run:exec') || '' }}  \
+          ${{ (inputs.enable-read-remote-scope == 'true' && inputs.enable-run-exec-scope == 'false' && '--scopes read:remote') || '' }}  \
+          ${{ (inputs.enable-read-remote-scope == 'false' && inputs.enable-run-exec-scope == 'true' && '--scopes run:exec') || '' }}

@@ -1,0 +1,6 @@
+desc: Remote include sample
+if: false
+steps:
+  -
+    include:
+      path: https://raw.githubusercontent.com/k1LoW/runn/main/testdata/book/env.yml
