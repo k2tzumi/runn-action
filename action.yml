@@ -79,7 +79,7 @@ runs:
       shell: 'bash'
       run: |
         if [ -n "${{ inputs.labels }}" ]; then
-          LABELS=$(echo "${{ inputs.labels }}" | sed "s/,/ /g")
+          LABELS=$(echo "${{ inputs.labels }}" | sed "s/,/ --label /g")
           LABEL_OPTIONS="${LABELS[@]/#/--label }"
         fi
         runn \
