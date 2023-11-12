@@ -80,7 +80,7 @@ runs:
       run: |
         if [ -n "${{ inputs.labels }}" ]; then
           LABELS=$(echo "${{ inputs.labels }}" | sed "s/,/ /g")
-          LABEL_OPTIONS="${OPTIONS[@]/#/--option }"
+          LABEL_OPTIONS="${LABELS[@]/#/--label }"
         fi
         runn \
           ${{ inputs.command }} \
