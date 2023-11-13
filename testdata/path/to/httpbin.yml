@@ -1,4 +1,6 @@
 desc: testing json request body
+labels:
+  - integration_http
 runners:
   req:
     endpoint: ${HTTPBIN_END_POINT:-https://httpbin.org/}

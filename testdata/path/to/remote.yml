@@ -1,4 +1,6 @@
 desc: Remote include sample
+labels:
+  - integration
 if: false
 steps:
   -

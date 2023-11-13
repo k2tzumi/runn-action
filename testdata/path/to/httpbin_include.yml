@@ -1,4 +1,6 @@
 desc: testing include
+labels:
+  - integration_http
 runners:
   req:
     endpoint: ${HTTPBIN_END_POINT:-https://httpbin.org/}

@@ -51,6 +51,9 @@ inputs:
     description: Required for running Exec runner.(`--scopes run:exec`)
     required: false
     default: false
+  labels:
+    description: To filter execution targets, specify labels separated by commas.(For example, `foo,bar` would be `--label foo --label bar`)
+    required: false
 
 runs:
   using: 'composite'
@@ -75,6 +78,10 @@ runs:
     - name: 'Run runn'
       shell: 'bash'
       run: |
+        if [ -n "${{ inputs.labels }}" ]; then
+          LABELS=$(echo "${{ inputs.labels }}" | sed "s/,/ --label /g")
+          LABEL_OPTIONS="${LABELS[@]/#/--label }"
+        fi
         runn \
           ${{ inputs.command }} \
           ${{ inputs.path_pattern }} \
@@ -86,4 +93,5 @@ runs:
           ${{ (inputs.concurrent == 'true' && '--concurrent on') || '' }} \
           ${{ (inputs.enable-read-remote-scope == 'true' && inputs.enable-run-exec-scope == 'true' && '--scopes read:remote,run:exec') || '' }}  \
           ${{ (inputs.enable-read-remote-scope == 'true' && inputs.enable-run-exec-scope == 'false' && '--scopes read:remote') || '' }}  \
-          ${{ (inputs.enable-read-remote-scope == 'false' && inputs.enable-run-exec-scope == 'true' && '--scopes run:exec') || '' }}
+          ${{ (inputs.enable-read-remote-scope == 'false' && inputs.enable-run-exec-scope == 'true' && '--scopes run:exec') || '' }}  \
+          $LABEL_OPTIONS

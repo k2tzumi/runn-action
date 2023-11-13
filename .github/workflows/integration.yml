@@ -30,6 +30,7 @@ jobs:
           shuffle: true
           concurrent: true
           enable-run-exec-scope: true
+          labels: "integration,integration_http"
         env:
           # Override parameters in scenario with environment variables
           # NOTE: Specify `172.17.0.1` when accessing services on the GitHub Actions host.
