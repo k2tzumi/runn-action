@@ -82,6 +82,7 @@ runs:
           LABELS=$(echo "${{ inputs.labels }}" | sed "s/,/ --label /g")
           LABEL_OPTIONS="${LABELS[@]/#/--label }"
         fi
+        echo "label options: $LABEL_OPTIONS"
         runn \
           ${{ inputs.command }} \
           ${{ inputs.path_pattern }} \
