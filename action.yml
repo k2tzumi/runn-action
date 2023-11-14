@@ -79,7 +79,7 @@ runs:
       shell: 'bash'
       run: |
         if [ -n "${{ inputs.labels }}" ]; then
-          LABEL_OPTIONS="--label \"${{ inputs.labels }\""
+          LABEL_OPTIONS="--label \"${{ inputs.labels }}\""
         fi
         echo "label options: $LABEL_OPTIONS"
         runn \
