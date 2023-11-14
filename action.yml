@@ -18,7 +18,7 @@ inputs:
   version:
     description: Specify runn version
     required: false
-    default: 'v0.89.1'
+    default: 'v0.90.0'
   debug:
     description: Filter runbooks to be executed
     required: false
@@ -52,7 +52,7 @@ inputs:
     required: false
     default: false
   labels:
-    description: To filter execution targets, specify labels separated by commas.(For example, `foo,bar` would be `--label foo --label bar`)
+    description: To filter execution targets, specify labels separated by commas.(For example, `foo,bar` would be `--label "foo,bar"`)
     required: false
 
 runs:
@@ -79,9 +79,9 @@ runs:
       shell: 'bash'
       run: |
         if [ -n "${{ inputs.labels }}" ]; then
-          LABELS=$(echo "${{ inputs.labels }}" | sed "s/,/ --label /g")
-          LABEL_OPTIONS="${LABELS[@]/#/--label }"
+          LABEL_OPTIONS="--label \"${{ inputs.labels }}\""
         fi
+        echo "label options: $LABEL_OPTIONS"
         runn \
           ${{ inputs.command }} \
           ${{ inputs.path_pattern }} \

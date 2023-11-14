@@ -69,6 +69,7 @@ Enable concurrent execution. Default is `false`.
 Enable `read:remote` scope. Default is `false`.
 - `enable-run-exec-scope`  
 Enable `run:exec` scope. Default is `false`.
-
+- `labels`  
+Specify a label to narrow down the target of execution. Multiple labels can be separated by commas.
 
 See [action.yml](action.yml) and [runn README](https://github.com/k1LoW/runn) for more details on how to runbook it.
