@@ -18,7 +18,7 @@ inputs:
   version:
     description: Specify runn version
     required: false
-    default: "v0.103.1"
+    default: "v0.103.2"
   debug:
     description: Filter runbooks to be executed
     required: false
