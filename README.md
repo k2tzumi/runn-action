@@ -30,7 +30,7 @@ jobs:
           - 8080:80
     steps:
       -
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       -
         uses: k2tzumi/runn-action@latest
         with:
