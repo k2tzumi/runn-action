@@ -61,10 +61,28 @@ runs:
     - name: 'Check input parameter'
       shell: 'bash'
       run: |
-        if [[ "${{ inputs.version }}" < "v0.64.0" ]]; then
-          echo "Error: runn version ${{ inputs.version }} is not supported. Please use v0.64.0 or higher."
-          exit 1
-        fi
+        # vx.y.z -> x.y.z
+        input_version=$(echo "${{ inputs.version }}" | sed 's/^v//')
+        compatible_version=$(echo "v0.64.0" | sed 's/^v//')
+
+        # x.y.z -> [x, y, z]
+        IFS='.' read -r -a splitted_input_version <<< "$input_version"
+        IFS='.' read -r -a splitted_compatible_version <<< "$compatible_version"
+
+        for i in {0..2}; do
+          # check if number
+          if [[ ! ${splitted_input_version[i]} =~ ^[0-9]+$ ]]; then
+            echo "Error: $input_version is invalid version."
+            exit 1
+          fi
+
+          # compare version
+          if ((10#${splitted_input_version[i]} < 10#${splitted_compatible_version[i]})); then
+            echo "Error: runn version $input_version is not supported. Please use $compatible_version or higher."
+            exit 1
+          fi
+        done
+
         if [[ ! "${{ inputs.command }}" =~ ^(run|list|loadt)$ ]]; then
           echo "Error: Invalid command ${{ inputs.command }} is not supported. Please specify run or list or loadt."
           exit 1
