@@ -21,6 +21,7 @@ jobs:
       - name: 'Option test'
         uses: ./
         with:
+          version: "v0.122.1"
           command: run
           path_pattern: testdata/path/to/*.yml
           debug: true
@@ -30,6 +31,8 @@ jobs:
           shuffle: true
           concurrent: true
           enable-run-exec-scope: true
+          enable-read-remote-scope: true
+          enable-read-parent-scope: true
           labels: "integration,integration_http"
         env:
           # Override parameters in scenario with environment variables

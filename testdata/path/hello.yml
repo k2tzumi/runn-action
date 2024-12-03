@@ -1,0 +1,7 @@
+desc: Parent runbook
+labels:
+  - integration
+steps:
+  -
+    test: |
+      len('hello') == 5
