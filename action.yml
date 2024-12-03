@@ -18,7 +18,7 @@ inputs:
   version:
     description: Specify runn version
     required: false
-    default: "v0.114.1"
+    default: latest
   debug:
     description: Filter runbooks to be executed
     required: false
@@ -61,6 +61,20 @@ runs:
     - name: 'Check input parameter'
       shell: 'bash'
       run: |
+        #
+        # subcommand check
+        #
+        if [[ ! "${{ inputs.command }}" =~ ^(run|list|loadt)$ ]]; then
+          echo "Error: Invalid command ${{ inputs.command }} is not supported. Please specify run or list or loadt."
+          exit 1
+        fi
+
+        #
+        # version check
+        #
+        if [[ "${{ inputs.version }}" == "latest" ]]; then
+          exit 0
+        fi
         # vx.y.z -> x.y.z
         input_version=$(echo "${{ inputs.version }}" | sed 's/^v//')
         compatible_version=$(echo "v0.64.0" | sed 's/^v//')
@@ -82,11 +96,6 @@ runs:
             exit 1
           fi
         done
-
-        if [[ ! "${{ inputs.command }}" =~ ^(run|list|loadt)$ ]]; then
-          echo "Error: Invalid command ${{ inputs.command }} is not supported. Please specify run or list or loadt."
-          exit 1
-        fi
     - name: Setup k1LoW/runn
       uses: k1LoW/gh-setup@v1
       with:
