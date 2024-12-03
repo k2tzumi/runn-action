@@ -18,7 +18,7 @@ inputs:
   version:
     description: Specify runn version
     required: false
-    default: latest
+    default: "v0.120.0"
   debug:
     description: Filter runbooks to be executed
     required: false
@@ -41,6 +41,10 @@ inputs:
     default: false
   concurrent:
     description: Concurrent mode
+    required: false
+    default: false
+  enable-read-parent-scope:
+    description: Required for reading parent files.(`--scopes read:parent`)
     required: false
     default: false
   enable-read-remote-scope:
@@ -118,7 +122,7 @@ runs:
           ${{ (inputs.skip-test == 'true' && '--skip-test') || '' }} \
           ${{ (inputs.shuffle == 'true' && '--shuffle on') || '' }} \
           ${{ (inputs.concurrent == 'true' && '--concurrent on') || '' }} \
-          ${{ (inputs.enable-read-remote-scope == 'true' && inputs.enable-run-exec-scope == 'true' && '--scopes read:remote,run:exec') || '' }}  \
-          ${{ (inputs.enable-read-remote-scope == 'true' && inputs.enable-run-exec-scope == 'false' && '--scopes read:remote') || '' }}  \
-          ${{ (inputs.enable-read-remote-scope == 'false' && inputs.enable-run-exec-scope == 'true' && '--scopes run:exec') || '' }}  \
+          ${{ (inputs.enable-read-parent-scope == 'true' && '--scopes read:parent') || '' }}  \
+          ${{ (inputs.enable-read-remote-scope == 'true' && '--scopes read:remote') || '' }}  \
+          ${{ (inputs.enable-run-exec-scope == 'true' && '--scopes run:exec') || '' }}  \
           $LABEL_OPTIONS

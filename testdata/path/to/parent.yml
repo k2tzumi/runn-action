@@ -1,0 +1,7 @@
+desc: Parent include sample
+labels:
+  - integration
+steps:
+  -
+    include:
+      path: ../hello.yml
