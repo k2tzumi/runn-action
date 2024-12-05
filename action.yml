@@ -113,6 +113,7 @@ runs:
           LABEL_OPTIONS="--label \"${{ inputs.labels }}\""
         fi
         echo "label options: $LABEL_OPTIONS"
+        shopt -s globstar
         runn \
           ${{ inputs.command }} \
           ${{ inputs.path_pattern }} \
