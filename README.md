@@ -46,10 +46,12 @@ jobs:
 - `command`  
 `Required` `run` a scenario by specifying run.  
 `list` the contents of a scenario by specifying list.  
-If `loadt` is specified, the scenario can be used as a load test. 
+If `loadt` is specified, the scenario can be used as a load test.
 Default is `run`.
 - `path_pattern`  
 `Required` Specify the path to the Runbook ( runn scenario file ).
+- `github-token`
+The GitHub token. Default is `${{ github.token }}`.
 - `debug`  
 Enable runtime debug output. Default is `false`.
 - `verbose`  
@@ -65,6 +67,8 @@ Scenario runs, but test is not evaluated. Default is `false`.
 Shuffle multiple Runbooks to run with the runn command. Default is `false`.
 - `concurrent`  
 Enable concurrent execution. Default is `false`.
+- `enable-read-parent-scope`
+Enable `read:parent` scope. Default is `false`.
 - `enable-read-remote-scope`  
 Enable `read:remote` scope. Default is `false`.
 - `enable-run-exec-scope`  
