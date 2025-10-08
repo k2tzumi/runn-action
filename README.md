@@ -1,3 +1,33 @@
+## ⚠️ Important: License Compliance Notice
+
+**CRITICAL:** Versions `v0.71.0` through `v0.138.0` of runn contain AGPL-3.0 licensed code.
+
+### Affected Versions
+- ❌ **v0.71.0 - v0.138.0**: Contains AGPL-3.0 licensed dependencies
+
+### Safe Versions
+- ✅ **v0.139.0 or later** (Recommended - **now default**)
+- ✅ **v0.70.0 or earlier**
+
+### What This Means
+The affected versions of runn contain AGPL-3.0 licensed dependencies. While using runn as an external testing tool (without modifying or distributing it) typically does not trigger AGPL-3.0 obligations, we recommend consulting with your legal counsel to understand the implications for your specific use case.
+
+### Current Behavior
+- **Now (Phase 1)**: Warning message displayed, workflow continues
+- **Future (Phase 2)**: These versions will be blocked with an error
+
+### Migration
+If you're using affected versions, update your workflow:
+
+```yaml
+- uses: k2tzumi/runn-action@v1
+  with:
+    version: 'v0.139.0'  # ✅ Safe version (new default)
+    path_pattern: 'testdata/**/*.yml'
+```
+
+For details, see [runn Issue #1319](https://github.com/k1LoW/runn/issues/1319).
+
 # runn-action
 
 :octocat: GitHub Action for [runn](https://github.com/k1LoW/runn)
