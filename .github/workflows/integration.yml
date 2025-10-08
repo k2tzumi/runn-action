@@ -75,9 +75,18 @@ jobs:
           enable-read-remote-scope: true
           enable-read-parent-scope: true
         continue-on-error: true
-      - name: 'Assert license warning'
+      - name: 'Check warning annotation count'
         run: |
-          if ! grep -q "LICENSE COMPLIANCE NOTICE" "${{ steps.license-warning.outputs.stdout }}"; then
-            echo "runn v0.136.0 contains AGPL-3.0 dependencies."
+          run_id="${{ github.run_id }}"
+          job_name="license-warning-test"
+          # Get job ID
+          job_id=$(gh api "/repos/${{ github.repository }}/actions/runs/$run_id/jobs" --jq ".jobs[] | select(.name==\"$job_name\") | .id")
+          # Get warning count
+          warning_count=$(gh api "/repos/${{ github.repository }}/actions/jobs/$job_id/annotations" --jq '[.[] | select(.annotation_level=="warning")] | length')
+          echo "Warning count: $warning_count"
+          if [ "$warning_count" -eq 0 ]; then
+            echo "No license warning annotation found."
             exit 1
           fi
+        env:
+          GH_TOKEN: ${{ github.token }}
