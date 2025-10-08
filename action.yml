@@ -84,31 +84,6 @@ runs:
         input_version=$(echo "${{ inputs.version }}" | sed 's/^v//')
         compatible_version=$(echo "v0.64.0" | sed 's/^v//')
 
-        # x.y.z -> [x, y, z]
-        IFS='.' read -r -a splitted_input_version <<< "$input_version"
-        IFS='.' read -r -a splitted_compatible_version <<< "$compatible_version"
-
-        for i in {0..2}; do
-          # check if number
-          if [[ ! ${splitted_input_version[i]} =~ ^[0-9]+$ ]]; then
-            echo "Error: $input_version is invalid version."
-            exit 1
-          fi
-
-          # compare version
-          if ((10#${splitted_input_version[i]} < 10#${splitted_compatible_version[i]})); then
-            echo "Error: runn version $input_version is not supported. Please use $compatible_version or higher."
-            exit 1
-          fi
-        done
-
-        #
-        # License compliance check for AGPL-3.0 issue
-        # Issue: https://github.com/k1LoW/runn/issues/1319
-        #
-        blocked_start_version="0.71.0"
-        blocked_end_version="0.138.0"
-
         # Round the version to an integer (remove leading zeros)
         version_to_int() {
           local ver="$1"
@@ -118,6 +93,21 @@ runs:
         }
 
         input_version_int=$(version_to_int "$input_version")
+        compatible_version_int=$(version_to_int "$compatible_version")
+
+        # Versions below v0.64.0 will result in an error.
+        if (( input_version_int < compatible_version_int )); then
+          echo "Error: runn version $input_version is not supported. Please use $compatible_version or higher."
+          exit 1
+        fi
+
+        #
+        # License compliance check for AGPL-3.0 issue
+        # Issue: https://github.com/k1LoW/runn/issues/1319
+        #
+        blocked_start_version="0.71.0"
+        blocked_end_version="0.138.0"
+
         blocked_start_int=$(version_to_int "$blocked_start_version")
         blocked_end_int=$(version_to_int "$blocked_end_version")
 
