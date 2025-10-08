@@ -54,3 +54,18 @@ jobs:
           shuffle: true
           concurrent: true
         continue-on-error: true
+      - name: 'License warning test'
+        id: license-warning
+        uses: ./
+        with:
+          version: "v0.136.0"
+          command: run
+          path_pattern: testdata/path/to/*.yml
+        continue-on-error: true
+
+      - name: 'Assert license warning'
+        run: |
+          if ! grep -q "license violation issue" "${{ steps.license-warning.outputs.stdout }}"; then
+            echo "License warning was not shown for v0.136.0"
+            exit 1
+          fi
