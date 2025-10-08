@@ -113,7 +113,8 @@ runs:
         version_to_int() {
           local ver="$1"
           IFS='.' read -r major minor patch <<< "$ver"
-          echo "$major$minor$patch"
+          # Do not pad with zeros; concatenate each value as a decimal number.
+          echo "$((10#$major))$((10#$minor))$((10#$patch))"
         }
 
         input_version_int=$(version_to_int "$input_version")
