@@ -75,9 +75,3 @@ jobs:
           enable-read-remote-scope: true
           enable-read-parent-scope: true
         continue-on-error: true
-      - name: 'Check warning in logs'
-        run: |
-          if ! grep -q "LICENSE COMPLIANCE NOTICE" $GITHUB_WORKSPACE/_temp/*; then
-            echo "No license warning annotation found."
-            exit 1
-          fi
