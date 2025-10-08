@@ -71,6 +71,9 @@ jobs:
           version: "v0.136.0"
           command: run
           path_pattern: testdata/path/to/*.yml
+          enable-run-exec-scope: true
+          enable-read-remote-scope: true
+          enable-read-parent-scope: true
         continue-on-error: true
       - name: 'Assert license warning'
         run: |
