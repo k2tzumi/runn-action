@@ -106,40 +106,21 @@ runs:
         # License compliance check for AGPL-3.0 issue
         # Issue: https://github.com/k1LoW/runn/issues/1319
         #
-        blocked_start_version=$(echo "v0.71.0" | sed 's/^v//')
-        blocked_end_version=$(echo "v0.138.0" | sed 's/^v//')
+        blocked_start_version="0.71.0"
+        blocked_end_version="0.138.0"
 
-        IFS='.' read -r -a splitted_blocked_start <<< "$blocked_start_version"
-        IFS='.' read -r -a splitted_blocked_end <<< "$blocked_end_version"
+        # Round the version to an integer
+        version_to_int() {
+          local ver="$1"
+          IFS='.' read -r major minor patch <<< "$ver"
+          printf "%03d%03d%03d" "$major" "$minor" "$patch"
+        }
 
-        # Check if version is in blocked range (v0.71.0 <= version <= v0.138.0)
-        is_blocked=false
-        
-        # Check if >= blocked_start
-        for i in {0..2}; do
-          if ((10#${splitted_input_version[i]} > 10#${splitted_blocked_start[i]})); then
-            break
-          elif ((10#${splitted_input_version[i]} < 10#${splitted_blocked_start[i]})); then
-            is_blocked=false
-            break
-          elif [ $i -eq 2 ]; then
-            is_blocked=true
-          fi
-        done
+        input_version_int=$(version_to_int "$input_version")
+        blocked_start_int=$(version_to_int "$blocked_start_version")
+        blocked_end_int=$(version_to_int "$blocked_end_version")
 
-        # If >= blocked_start, check if <= blocked_end
-        if [ "$is_blocked" = true ]; then
-          for i in {0..2}; do
-            if ((10#${splitted_input_version[i]} < 10#${splitted_blocked_end[i]})); then
-              break
-            elif ((10#${splitted_input_version[i]} > 10#${splitted_blocked_end[i]})); then
-              is_blocked=false
-              break
-            fi
-          done
-        fi
-
-        if [ "$is_blocked" = true ]; then
+        if (( input_version_int >= blocked_start_int && input_version_int <= blocked_end_int )); then
           echo ""
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "⚠️  LICENSE COMPLIANCE NOTICE"
@@ -162,10 +143,6 @@ runs:
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo ""
           echo "::warning::runn v$input_version contains AGPL-3.0 dependencies. Please update to v0.139.0+. See https://github.com/k1LoW/runn/issues/1319"
-          
-          # Future: Uncomment to block execution
-          # echo "::error::Version v$input_version is blocked due to license issues"
-          # exit 1
         fi
     - name: Setup k1LoW/runn
       uses: k1LoW/gh-setup@v1
