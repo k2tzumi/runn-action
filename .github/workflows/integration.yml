@@ -54,6 +54,16 @@ jobs:
           shuffle: true
           concurrent: true
         continue-on-error: true
+
+  license-warning-test:
+    runs-on: ubuntu-latest
+    services:
+      httpbin:
+        image: kennethreitz/httpbin:latest
+        ports:
+          - 8080:80
+    steps:
+      - uses: actions/checkout@v5
       - name: 'License warning test'
         id: license-warning
         uses: ./
@@ -62,7 +72,6 @@ jobs:
           command: run
           path_pattern: testdata/path/to/*.yml
         continue-on-error: true
-
       - name: 'Assert license warning'
         run: |
           if ! grep -q "license violation issue" "${{ steps.license-warning.outputs.stdout }}"; then
