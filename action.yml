@@ -109,11 +109,11 @@ runs:
         blocked_start_version="0.71.0"
         blocked_end_version="0.138.0"
 
-        # Round the version to an integer
+        # Round the version to an integer (remove leading zeros)
         version_to_int() {
           local ver="$1"
           IFS='.' read -r major minor patch <<< "$ver"
-          printf "%03d%03d%03d" "$major" "$minor" "$patch"
+          echo "$major$minor$patch"
         }
 
         input_version_int=$(version_to_int "$input_version")
