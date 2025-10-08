@@ -65,7 +65,6 @@ runs:
     - name: 'Check input parameter'
       shell: 'bash'
       run: |
-        set -x
         #
         # subcommand check
         #
