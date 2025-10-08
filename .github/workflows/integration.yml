@@ -78,6 +78,6 @@ jobs:
       - name: 'Assert license warning'
         run: |
           if ! grep -q "license violation issue" "${{ steps.license-warning.outputs.stdout }}"; then
-            echo "License warning was not shown for v0.136.0"
+            echo "runn v0.136.0 contains AGPL-3.0 dependencies."
             exit 1
           fi
