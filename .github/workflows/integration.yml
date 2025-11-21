@@ -19,7 +19,7 @@ jobs:
         ports:
           - 8080:80
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: 'Option test'
         uses: ./
@@ -63,7 +63,7 @@ jobs:
         ports:
           - 8080:80
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: 'License warning test'
         id: license-warning
         uses: ./
