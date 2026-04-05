@@ -9,6 +9,8 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
     registries:
       - ghcr
 registries:
