@@ -36,7 +36,7 @@ jobs:
           sed -i -e "s/default: \"v[.0-9]\{1,\}\"/default: \"${{ github.event.inputs.version }}\"/g" action.yml
           git diff
       - name: Commit changes
-        uses: EndBug/add-and-commit@290ea2c423ad77ca9c62ae0f5b224379612c0321 # v10.0.0
+        uses: EndBug/add-and-commit@cc9c08ba6c8df3b93a8f2db63e89b98368ae2ae8 # v11.1.1
         with:
           committer_name: GitHub Actions
           committer_email: 41898282+github-actions[bot]@users.noreply.github.com
